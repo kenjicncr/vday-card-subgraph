@@ -1,7 +1,7 @@
 import { SafeTransferFromCall } from './types/NCRVDay/NCRVDayABI'
 import { VDayCard } from './types/schema'
 export function handleSafeTransferFrom(event: SafeTransferFromCall): void  {
-  let id = event.transaction.hash.toString()
+  let id = event.transaction.hash.toHex()
   let tokenId = event.inputs.tokenId
 
   let message = event.inputs.message_
