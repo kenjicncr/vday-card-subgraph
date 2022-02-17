@@ -1,0 +1,27 @@
+type VDayCard @entity {
+  id: ID!
+
+  sender: Address!
+
+  receiver: Address!
+
+  message: String
+
+  nickname: String
+
+  response: VDayCardResponse @index
+}
+
+type VDayCardResponse @entity {
+  id: ID!
+
+  sender: String!
+
+  receiver: String!
+
+  state: Boolean
+
+  message: String
+
+  nickname: String
+}
