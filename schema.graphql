@@ -3,9 +3,9 @@ type VDayCard @entity {
 
   tokenId: BigInt!
 
-  sender: String!
+  sender: Bytes!
 
-  receiver: String!
+  receiver: Bytes!
 
   message: String
 
@@ -19,9 +19,9 @@ type VDayCardResponse @entity {
 
   tokenId: BigInt!
 
-  sender: String!
+  sender: Bytes!
 
-  receiver: String!
+  receiver: Bytes!
 
   state: Boolean
 

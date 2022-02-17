@@ -6,8 +6,8 @@ export function handleSafeTransferFrom(event: SafeTransferFromCall): void  {
 
   let message = event.inputs.message_
   let nickname = event.inputs.nickname_
-  let sender = event.inputs.from.toString()
-  let receiver = event.inputs.to.toString()
+  let sender = event.inputs.from
+  let receiver = event.inputs.to
 
   let vdayCard = VDayCard.load(id)
   
