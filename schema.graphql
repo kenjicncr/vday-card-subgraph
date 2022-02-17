@@ -1,9 +1,11 @@
 type VDayCard @entity {
   id: ID!
 
-  sender: Address!
+  tokenId: BigInt!
 
-  receiver: Address!
+  sender: String!
+
+  receiver: String!
 
   message: String
 
@@ -14,6 +16,8 @@ type VDayCard @entity {
 
 type VDayCardResponse @entity {
   id: ID!
+
+  tokenId: BigInt!
 
   sender: String!
 

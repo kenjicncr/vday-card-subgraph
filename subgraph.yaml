@@ -1,4 +1,4 @@
-specVersion: 0.0.2
+specVersion: 0.0.4
 description: Moonbeam lottery subgraph tutorial
 repository: https://github.com/PureStake/moonlotto-subgraph
 schema:
@@ -10,10 +10,10 @@ dataSources:
     source:
       address: '0x366140C861fcC3694F3b6FA83DeBB78d39B14BFe'
       abi: NCRVDayABI
-      startBlock: 33206
+      startBlock: 1482028
     mapping:
       kind: ethereum/calls
-      apiVersion: 0.0.4
+      apiVersion: 0.0.6
       language: wasm/assemblyscript
       file: ./src/mapping.ts
       entities:
