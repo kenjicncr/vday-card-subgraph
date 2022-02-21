@@ -25,3 +25,5 @@ dataSources:
       callHandlers:
         - function: safeTransferFrom(address,address,uint256,string,string)
           handler: handleSafeTransferFrom
+        - function: respond(uint256,bool,string,string)
+          handler: handleRespond

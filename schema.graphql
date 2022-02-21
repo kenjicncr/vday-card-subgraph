@@ -1,4 +1,4 @@
-type VDayCard @entity {
+type ValentinesDayCard @entity {
   id: ID!
 
   tokenId: BigInt!
@@ -11,10 +11,10 @@ type VDayCard @entity {
 
   nickname: String
 
-  response: VDayCardResponse @index
+  response: ValentinesDayCardResponse @index
 }
 
-type VDayCardResponse @entity {
+type ValentinesDayCardResponse @entity {
   id: ID!
 
   tokenId: BigInt!
