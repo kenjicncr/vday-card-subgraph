@@ -1,4 +1,4 @@
-import { log, Value } from '@graphprotocol/graph-ts'
+import { Bytes, log, Value } from '@graphprotocol/graph-ts'
 import { RespondCall, SafeTransferFromCall } from './types/NCRVDay/NCRVDayABI'
 import { ValentinesDayCard, ValentinesDayCardResponse } from './types/schema'
 
@@ -27,8 +27,12 @@ export function handleSafeTransferFrom(call: SafeTransferFromCall): void  {
     vdayCard.sender = sender
 
     // create an empty response with only this sender as the receiver
-    let vdayCardResponse = new ValentinesDayCardResponse(tokenId.toHexString())
+    let vdayCardResponse = new ValentinesDayCardResponse(id)
+    vdayCardResponse.tokenId = tokenId
     vdayCardResponse.receiver = sender
+
+    // set response vday card
+    vdayCard.response = vdayCardResponse.id
 
     vdayCard.save()
     vdayCardResponse.save()
@@ -46,15 +50,19 @@ export function handleRespond(call: RespondCall): void {
 
   let vdayCardResponse = ValentinesDayCardResponse.load(id)
 
-  // only create response if it doesn't already exist
+  // only create response if response sender was never 
 
-  if(!vdayCardResponse) {
+  const zeroSender = new Bytes()
+  
+  if(vdayCardResponse.sender === zeroSender) {
     vdayCardResponse = new ValentinesDayCardResponse(id)
     vdayCardResponse.message = message
     vdayCardResponse.nickname = nickname
     vdayCardResponse.tokenId = tokenId
-    vdayCardResponse.sender = call.from
     vdayCardResponse.state = state
+
+    // this makes sure we set the sender
+    vdayCardResponse.sender = call.from
 
     vdayCardResponse.save()
   }
