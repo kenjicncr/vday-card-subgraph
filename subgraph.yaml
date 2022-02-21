@@ -1,6 +1,6 @@
 specVersion: 0.0.4
-description: Moonbeam lottery subgraph tutorial
-repository: https://github.com/PureStake/moonlotto-subgraph
+description: Vday card subgraph
+repository: https://github.com/kenjicncr/vday-card-subgraph
 schema:
   file: ./schema.graphql
 dataSources:
