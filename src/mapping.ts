@@ -1,4 +1,4 @@
-import { log } from '@graphprotocol/graph-ts'
+import { log, Value } from '@graphprotocol/graph-ts'
 import { SafeTransferFromCall } from './types/NCRVDay/NCRVDayABI'
 import { VDayCard } from './types/schema'
 
@@ -13,18 +13,20 @@ export function handleSafeTransferFrom(call: SafeTransferFromCall): void  {
   let sender = call.inputs.from
   let receiver = call.inputs.to
 
+  let vdayCard = VDayCard.load(id)
 
-  // let vdayCard = VDayCard.load(id)
-  
-  let vdayCard = new VDayCard(id)
+  if(!vdayCard) {
+      
+    vdayCard = new VDayCard(id)
+    vdayCard.set("id", Value.fromString(id))
+    vdayCard.set("message", Value.fromString(message))
+    vdayCard.set("nickname", Value.fromString(nickname))
+    vdayCard.set("sender", Value.fromAddress(sender))
+    vdayCard.set("receiver", Value.fromAddress(receiver))
 
-  vdayCard.tokenId = tokenId
-  vdayCard.message = message
-  vdayCard.nickname = nickname
-  vdayCard.sender = sender
-  vdayCard.receiver = receiver
-  vdayCard.response = null
-
-  // vdayCard.save()
+    vdayCard.save()
+  } {
+     // let vdayCard = VDayCard.load(id)
+  }
 
 }
