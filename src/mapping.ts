@@ -3,8 +3,8 @@ import { RespondCall, SafeTransferFromCall } from './types/NCRVDay/NCRVDayABI'
 import { ValentinesDayCard, ValentinesDayCardResponse } from './types/schema'
 
 export function handleSafeTransferFrom(call: SafeTransferFromCall): void  {
-  let id = call.transaction.hash.toHex()
   let tokenId = call.inputs.tokenId
+  let id = tokenId.toHexString()
 
   call.block.timestamp
 
@@ -48,23 +48,30 @@ export function handleRespond(call: RespondCall): void {
   let nickname = call.inputs.nickname_
   let state = call.inputs.state
 
-  let vdayCardResponse = ValentinesDayCardResponse.load(id)
 
-  // only create response if response sender was never 
+  let vdayCard = ValentinesDayCard.load(id)
 
-  const zeroSender = new Bytes()
-  
-  if(vdayCardResponse.sender === zeroSender) {
-    vdayCardResponse = new ValentinesDayCardResponse(id)
-    vdayCardResponse.message = message
-    vdayCardResponse.nickname = nickname
-    vdayCardResponse.tokenId = tokenId
-    vdayCardResponse.state = state
+  if(vdayCard) {
+    // only create response
+    // if a vday card has been sent
+    // if response sender was never set
 
-    // this makes sure we set the sender
-    vdayCardResponse.sender = call.from
+    const zeroSender = Bytes.fromHexString("0x00000000")
+    let vdayCardResponse = ValentinesDayCardResponse.load(id)
 
-    vdayCardResponse.save()
+    if(vdayCardResponse) {
+      if(vdayCardResponse.sender === zeroSender) {
+        vdayCardResponse = new ValentinesDayCardResponse(id)
+        vdayCardResponse.message = message
+        vdayCardResponse.nickname = nickname
+        vdayCardResponse.tokenId = tokenId
+        vdayCardResponse.state = state
+        
+        // this makes sure we set the sender
+        vdayCardResponse.sender = call.from
+        vdayCardResponse.save()
+      }
+    }
   }
 
 }
