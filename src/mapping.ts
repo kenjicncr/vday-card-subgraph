@@ -55,13 +55,13 @@ export function handleRespond(call: RespondCall): void {
   if(vdayCard) {
     // only create response
     // if a vday card has been sent
-    // if response sender was never set
+    // if the message is empty
 
     const zeroSender = Bytes.fromHexString("0x00000000")
     let vdayCardResponse = ValentinesDayCardResponse.load(id)
 
     if(vdayCardResponse) {
-      if(vdayCardResponse.sender === zeroSender) {
+      if(!vdayCardResponse.message) {
         vdayCardResponse = new ValentinesDayCardResponse(id)
         vdayCardResponse.message = message
         vdayCardResponse.nickname = nickname
