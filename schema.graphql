@@ -31,5 +31,5 @@ type ValentinesDayCardResponse @entity {
 
   nickname: String
 
-  timeSent: BigInt!
+  timeSent: BigInt
 }
