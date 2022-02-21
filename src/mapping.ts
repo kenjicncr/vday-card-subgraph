@@ -5,8 +5,7 @@ import { ValentinesDayCard, ValentinesDayCardResponse } from './types/schema'
 export function handleSafeTransferFrom(call: SafeTransferFromCall): void  {
   let tokenId = call.inputs.tokenId
   let id = tokenId.toHexString()
-
-  call.block.timestamp
+  let timeSent = call.block.timestamp
 
   log.debug(`{}`, [id])
 
@@ -25,6 +24,7 @@ export function handleSafeTransferFrom(call: SafeTransferFromCall): void  {
     vdayCard.nickname = nickname
     vdayCard.receiver = receiver
     vdayCard.sender = sender
+    vdayCard.timeSent = timeSent
 
     // create an empty response with only this sender as the receiver
     let vdayCardResponse = new ValentinesDayCardResponse(id)
@@ -47,6 +47,7 @@ export function handleRespond(call: RespondCall): void {
   let message = call.inputs.message_
   let nickname = call.inputs.nickname_
   let state = call.inputs.state
+  let timeSent = call.block.timestamp
 
 
   let vdayCard = ValentinesDayCard.load(id)
@@ -66,6 +67,7 @@ export function handleRespond(call: RespondCall): void {
         vdayCardResponse.nickname = nickname
         vdayCardResponse.tokenId = tokenId
         vdayCardResponse.state = state
+        vdayCardResponse.timeSent = timeSent
         
         // this makes sure we set the sender
         vdayCardResponse.sender = call.from

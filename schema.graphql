@@ -11,6 +11,8 @@ type ValentinesDayCard @entity {
 
   nickname: String
 
+  timeSent: BigInt!
+
   response: ValentinesDayCardResponse @index
 }
 
@@ -28,4 +30,6 @@ type ValentinesDayCardResponse @entity {
   message: String
 
   nickname: String
+
+  timeSent: BigInt!
 }
